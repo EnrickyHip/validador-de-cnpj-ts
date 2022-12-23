@@ -71,4 +71,14 @@ describe("Cnpj", () => {
       expect(Cnpj.validate("asd2 234 23")).toBe(false);
     });
   });
+
+  describe("generate", () => {
+    it("should generate valid cnpj's", () => {
+      expect.assertions(10);
+      for (let i = 0; i < 10; i++) {
+        const cnpj = Cnpj.generate();
+        expect(Cnpj.validate(cnpj)).toBe(true);
+      }
+    });
+  });
 });

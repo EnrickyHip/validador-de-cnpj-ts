@@ -1,3 +1,5 @@
+import { random } from "./utils/random";
+
 export default class Cnpj {
   public static readonly regex = /^(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})-(\d{2})$/;
 
@@ -30,6 +32,13 @@ export default class Cnpj {
 
     const newCnpj = parcialCnpj + firstDigit + secondDigit;
     return newCnpj === cleanCnpj;
+  }
+
+  static generate(): string {
+    const cnpj = random(10000000, 99999999).toString() + "0001";
+    const firstDigit = Cnpj.createDigit(cnpj);
+    const secondDigit = Cnpj.createDigit(cnpj + firstDigit); // o + concatena o first digit no fim da string
+    return Cnpj.format(cnpj + firstDigit + secondDigit) as string;
   }
 
   private static createDigit(parcialCnpj: string): string {
