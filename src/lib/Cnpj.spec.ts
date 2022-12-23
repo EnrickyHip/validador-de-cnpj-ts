@@ -45,4 +45,30 @@ describe("Cnpj", () => {
       expect(Cnpj.format("aa.aaa.aaa/aaaa-aa")).toBeNull();
     });
   });
+
+  describe("validate", () => {
+    it("should validate cnpj", () => {
+      expect(Cnpj.validate("11.362.185/0001-09")).toBe(true);
+      expect(Cnpj.validate("54.652.513/0001-06")).toBe(true);
+      expect(Cnpj.validate("86.533.637/0001-69")).toBe(true);
+      expect(Cnpj.validate("83.104.215/0001-80")).toBe(true);
+      expect(Cnpj.validate("50.243.835/0001-40")).toBe(true);
+      expect(Cnpj.validate("08116547000169")).toBe(true);
+      expect(Cnpj.validate("71751613000109")).toBe(true);
+      expect(Cnpj.validate("93852397000120")).toBe(true);
+      expect(Cnpj.validate("11223946000133")).toBe(true);
+    });
+
+    it("should not validate cnpj", () => {
+      expect(Cnpj.validate("11.362.185/1001-09")).toBe(false);
+      expect(Cnpj.validate("54.652.113/0001-06")).toBe(false);
+      expect(Cnpj.validate("86.533.237/0001-69")).toBe(false);
+      expect(Cnpj.validate("83.404.215/0001-80")).toBe(false);
+      expect(Cnpj.validate("50.223.835/0001-40")).toBe(false);
+      expect(Cnpj.validate("08116547110169")).toBe(false);
+      expect(Cnpj.validate("71757613000109")).toBe(false);
+      expect(Cnpj.validate("aaaa")).toBe(false);
+      expect(Cnpj.validate("asd2 234 23")).toBe(false);
+    });
+  });
 });
