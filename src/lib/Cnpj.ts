@@ -82,7 +82,7 @@ export default class Cnpj {
    * Gera um CNPJ válido aleatório.
    * @returns O cnpj no formato: 99.999.999/0001-99.
    */
-  static generate(): string {
+  public static generate(): string {
     const cnpj = random(10000000, 99999999).toString() + "0001";
     const firstDigit = Cnpj.createDigit(cnpj);
     const secondDigit = Cnpj.createDigit(cnpj + firstDigit); // o + concatena o first digit no fim da string
