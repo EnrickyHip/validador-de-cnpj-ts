@@ -1,2 +1,2 @@
-import Cpf from "./lib/Cnpj";
-export = Cpf;
+import Cnpj from "./lib/Cnpj";
+export = Cnpj;
