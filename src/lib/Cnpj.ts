@@ -19,7 +19,7 @@ export default class Cnpj {
    *
    * @example
    *
-   * const CNPJLimpo = Cnpj.cleanUp('36.865.382/0001-63);
+   * const CNPJLimpo = Cnpj.cleanUp('36.865.382/0001-63');
    * console.log(CNPJLimpo);
    * //output: 36865382000163
    */
