@@ -83,7 +83,13 @@ export default class Cnpj {
    * @returns O cnpj no formato: 99.999.999/0001-99.
    */
   public static generate(): string {
-    const cnpj = random(10000000, 99999999).toString() + "0001";
+    let cnpjString = "";
+    for (let index = 0; index < 8; index++) {
+      const randomNumber = random(0, 9);
+      cnpjString += randomNumber.toString();
+    }
+
+    const cnpj = cnpjString.toString() + "0001";
     const firstDigit = Cnpj.createDigit(cnpj);
     const secondDigit = Cnpj.createDigit(cnpj + firstDigit); // o + concatena o first digit no fim da string
     return Cnpj.format(cnpj + firstDigit + secondDigit) as string;
@@ -92,21 +98,17 @@ export default class Cnpj {
   private static createDigit(parcialCnpj: string): string {
     const cnpjArray = Array.from(parcialCnpj);
 
-    let multiplicator = cnpjArray.length - 6;
-    const cnpjMultiplicateArray = cnpjArray.map((number) => {
-      multiplicator--;
-      if (multiplicator === 1) multiplicator = 9;
-      return Number(number) * multiplicator;
-    });
+    let total = 0;
+    let multiplier = cnpjArray.length - 6;
 
-    const total = cnpjMultiplicateArray.reduce((ac, value) => value + ac);
-    let digit: number;
-    if (total % 11 < 2) {
-      digit = 0;
-    } else {
-      digit = 11 - (total % 11);
+    for (const digit of cnpjArray) {
+      multiplier--;
+      if (multiplier === 1) multiplier = 9;
+      total += Number(digit) * multiplier;
     }
 
+    let digit = 11 - (total % 11);
+    if (digit > 9) digit = 0;
     return String(digit);
   }
 }
